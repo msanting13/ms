@@ -5,7 +5,7 @@
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Events</h1>
 		@if(Auth::user()->hasRole('role_admin'))
-			<a href="#modal-id" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Event</a>
+			<a href="#modal-id" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"><i class="fas fa-plus fa-sm text-white-50"></i> Post Event</a>
 		@endif
 	</div>
 	<!-- DataTales Example -->
@@ -15,11 +15,13 @@
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="announcementDataTable" width="100%" cellspacing="0">
+				<table class="table table-bordered" id="eventsDataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
 							<th>ID#</th>
-							<th>Title</th>
+							<th>Event name</th>
+							<th>Location</th>
+							<th>Date</th>
 							<th>Created at</th>
 							<th>status</th>
 							<th>Action</th>
@@ -28,7 +30,9 @@
 					<tfoot>
 						<tr>
 							<th>ID#</th>
-							<th>Title</th>
+							<th>Event name</th>
+							<th>Location</th>
+							<th>Date</th>
 							<th>Created at</th>
 							<th>status</th>
 							<th>Action</th>
@@ -104,7 +108,7 @@
 							</div>	
 						</div>
 						<div class="form-group">
-							<input type='checkbox' class='js-switch all-day' data-id=''> <label>All day</label>
+							<input type='checkbox' class='js-switch all-day' value="false" name="allday"><label>All day</label>
 						</div>
 						<div class="form-group">
 							<label>Description *</label>
@@ -128,79 +132,61 @@
 	@section('ajax-request')
 	<script type="text/javascript">
 		$(document).ready(function() {
-
-	        $('.makeMeRichTextarea').each( function () {
-	          CKEDITOR.replace(this.id,options)
-	        });
-
-		    // $('#announcementDataTable').DataTable({
-		    // 	"columnDefs": [{ 
-		    // 		"orderable": false, "targets": [1,4]
-		    // 	}],
-		    // 	"processing": true,
-		    // 	"serverSide": true,
-		    // 	"ajax":{
-		    // 		"url": "{route('announcement.data') }}",
-		    // 		"type": "POST",
-		    // 		"data":{ _token: "{csrf_token()}}"}
-		    // 	},
-		    // 	"columns": [
-		    // 	{ "data": "id" },
-		    // 	{ "data": "title" },
-		    // 	{ "data": "created_at" },
-		    // 	{ "data": "switch" },
-		    // 	{ "data": "action" },
-		    // 	],
-		    // 	"initComplete": function() {
-		    // 		if ($(".js-switch")[0]) {
-		    // 			var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-		    // 			elems.forEach(function (html) {
-		    // 				var switchery = new Switchery(html, {
-		    // 					color: '#26B99A',
-		    // 				});
-		    // 			});
-		    // 		}
-				  //   $('.btn-delete').on('click',function(e){
-				  //       e.preventDefault();
-				  //       let id = $(this).data('id');
-				  //       let title = $(this).data("textval");
-
-				  //       swal({
-				  //           title: "Are you sure you want to delete?",
-				  //           text: title,
-				  //           icon: "warning",
-				  //           buttons: true,
-				  //       })
-				  //       .then((isConfirm) => {
-				  //           if (isConfirm) {
-				  //               document.getElementById('delete-form'+id).submit(); 
-				  //           } 
-				  //           else {
-				  //           }
-				  //       });
-				  //   });
-		    // 	}
-		    // });
+		    $('#eventsDataTable').DataTable({
+		    	"columnDefs": [{ 
+		    		"orderable": false, "targets": [1,6]
+		    	}],
+		    	"processing": true,
+		    	"serverSide": true,
+		    	"ajax":{
+		    		"url": "{{ route('event.data') }}",
+		    		"type": "POST",
+		    		"data":{ _token: "{{csrf_token()}}"}
+		    	},
+		    	"columns": [
+		    	{ "data": "id" },
+		    	{ "data": "event_name" },
+		    	{ "data": "location" },
+		    	{ "data": "date" },
+		    	{ "data": "created_at" },
+		    	{ "data": "switch" },
+		    	{ "data": "action" },
+		    	],
+		    	"drawCallback": function(settings){
+		    		initJSwitch('.switch');
+		    		deleteFunction();
+		    	}
+		    });
 		});
 	</script>
-	<script type="text/javascript" src="/js/custom/switch-ajax.js"></script>
-	<script type="text/javascript" src="/js/custom/edit-announcement-ajax.js"></script>
+	<!--All-day-->
 	<script>
-		if ($(".js-switch")[0]) {
-			let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-			elems.forEach(function (html) {
-				let switchery = new Switchery(html, {
-					color: '#4e73df',
-				});
-			});
-		}
-		 $(document).ready(function () {
+		$(document).ready(function () {
 		 	$(document).on('change', '.all-day', function(a){
 		 		a.preventDefault();
-		 		$("#endtime,#startime").attr("disabled", "disabled");
+		 		let state = $(this).val();
+		 		if (state == 'false') {
+		 			$(this).val(true);
+		 			$("#endtime,#startime").attr("disabled", "disabled");
+		 			$("#endtime,#startime").val("12:00 AM");
+		 		}
+		 		else{
+		 			$(this).val(false);
+		 			$("#startime,#endtime").removeAttr("disabled");
+		 			$("#startime").val("12:00 PM");
+		 			$("#endtime").val("01:00 PM");
+		 		}
 			});    
-		 }); 
+		}); 
 	</script>
+	<!--Ckeidtor-->
+	<script>
+		$('.makeMeRichTextarea').each( function () {
+			CKEDITOR.replace(this.id,options)
+		});
+	</script>
+	<script type="text/javascript" src="/js/custom/edit-event-ajax.js"></script>
 	@include('sweet::alert')
 	@endsection
+	@section('publisher','/events/status/');
 @endsection

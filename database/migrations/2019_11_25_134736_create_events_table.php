@@ -23,6 +23,7 @@ class CreateEventsTable extends Migration
             $table->date('end_date');
             $table->time('end_time')->nullable();
             $table->boolean('is_allDay')->default(0);
+            $table->boolean('is_published')->default(0);
             $table->timestamps();
         });
     }

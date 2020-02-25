@@ -7,9 +7,12 @@ use Yajra\DataTables\Facades\Datatables;
 use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
 use Alert;
+use App\Traits\PublisherTrait;
 
 class AnnouncementController extends Controller
 {
+    use PublisherTrait;
+    
     public function announcementData()
     {
         return datatables()->of(Announcement::query())
@@ -109,5 +112,9 @@ class AnnouncementController extends Controller
         $announcement->delete();
         alert()->success($announcement->title.' was deleted','Success')->persistent('Ok');
         return back();
+    }
+    public function publish(Announcement $announcement)
+    {
+       return $this->publisher($announcement);
     }
 }

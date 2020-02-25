@@ -5,6 +5,16 @@
             <i class="fa fa-bars"></i>
           </button>
 
+          <a>
+            <strong>
+            <span class="date" id="hours"></span>
+            <span class="date" id="minutes"></span>
+            <span class="date" id="seconds"></span>
+            <span class="date" id="ampm"></span>
+            <span id="date" style="margin-left: 2px;"></span>
+            </strong>
+          </a>
+
           <!-- Topbar Search -->
 {{--           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
@@ -41,7 +51,7 @@
             </li>
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
+{{--             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
@@ -87,7 +97,7 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
               </div>
-            </li>
+            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -95,22 +105,22 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <img class="img-profile rounded-circle" src="/assets/images/users/{{ (!is_null(Auth::user()->picture)) ? Auth::user()->picture : 'user.png' }}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+{{--                 <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
-                <a class="dropdown-item" href="#">
+                </a> --}}
+                <a class="dropdown-item" href="{{ action('AccountSettingsController@index') }}">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
+                  Account Settings
                 </a>
-                <a class="dropdown-item" href="#">
+{{--                 <a class="dropdown-item" href="#">
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
-                </a>
+                </a> --}}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

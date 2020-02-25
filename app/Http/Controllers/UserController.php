@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 use Hash;
+use Alert;
 
 class UserController extends Controller
 {
@@ -17,7 +19,8 @@ class UserController extends Controller
     {
         $campuses = User::getDefaultCampuses();
         $users = User::get();
-        return view('admin.manage-users', compact('users','campuses'));
+        $roles = Role::get();
+        return view('admin.manage-users', compact('users','campuses','roles'));
     }
 
     /**
@@ -38,15 +41,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create([
-            'name'              =>      $request->name,
-            'position'          =>      $request->position,
-            'campuses'          =>      $request->campuses,
-            'email'             =>      $request->email,
-            'password'          =>      Hash::make($request->password),
-        ]);
 
-        return redirect()->back();
     }
 
     /**
@@ -66,9 +61,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+
     }
 
     /**
@@ -78,9 +73,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(User $user, Request $request)
     {
-        //
+
     }
 
     /**
@@ -93,4 +88,5 @@ class UserController extends Controller
     {
         //
     }
+
 }

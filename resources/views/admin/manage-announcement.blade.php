@@ -114,40 +114,15 @@
 		    	{ "data": "switch" },
 		    	{ "data": "action" },
 		    	],
-		    	"initComplete": function() {
-		    		if ($(".js-switch")[0]) {
-		    			var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-		    			elems.forEach(function (html) {
-		    				var switchery = new Switchery(html, {
-		    					color: '#26B99A',
-		    				});
-		    			});
-		    		}
-				    $('.btn-delete').on('click',function(e){
-				        e.preventDefault();
-				        let id = $(this).data('id');
-				        let title = $(this).data("textval");
-
-				        swal({
-				            title: "Are you sure you want to delete?",
-				            text: title,
-				            icon: "warning",
-				            buttons: true,
-				        })
-				        .then((isConfirm) => {
-				            if (isConfirm) {
-				                document.getElementById('delete-form'+id).submit(); 
-				            } 
-				            else {
-				            }
-				        });
-				    });
+		    	"drawCallback": function(settings){
+		    		initJSwitch('.switch');
+		    		deleteFunction();
 		    	}
 		    });
 		});
 	</script>
-	<script type="text/javascript" src="/js/custom/switch-ajax.js"></script>
 	<script type="text/javascript" src="/js/custom/edit-announcement-ajax.js"></script>
 	@include('sweet::alert')
 	@endsection
+	@section('publisher','/announcements/status/');
 @endsection

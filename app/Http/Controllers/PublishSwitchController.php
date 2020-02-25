@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class PublishSwitchController extends Controller
 {
-    public function changeStatus($value='')
+    public function changeStatus($id)
     {
     	# code...
     }

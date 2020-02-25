@@ -4,11 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Illuminate\Support\HtmlString;
+use App\Traits\PublisherTrait;
 use Alert;
 
 class EventController extends Controller
 {
+    use PublisherTrait;
+
+    public function eventsData()
+    {
+        return datatables()->of(Event::query())
+            ->addColumn('date', function ($date) {
+                return (!$date->is_allDay) ? date('F d, Y h:i A', strtotime($date->start_date.$date->start_time)).' To '.date('F d, Y h:i A', strtotime($date->end_date.$date->end_time)): 'All day' ;
+            })   
+            ->addColumn('action', function ($event) {
+                return view('admin.crud-form.crud-btn.event-btn', compact('event'));
+            })            
+            ->addColumn('switch', function ($status) {
+                $stat = $status->is_published;
+                $id = $status->id;
+                return  new HtmlString(view('admin.crud-form.switch-btn.switch-btn', compact('stat','id')));
+            })->make(true);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,11 +58,12 @@ class EventController extends Controller
         Event::create([
             'event_name'    =>      $request->name,
             'location'      =>      $request->location,
-            'start_date'    =>      date('Y-m-d',$request->startdate),
-            'start_time'    =>      $request->starttime,
-            'end_date'      =>      date('Y-m-d',$request->enddate),
-            'end_time'      =>      $request->endtime,
-            'description'   =>      $request->description
+            'start_date'    =>      date("Y-m-d",strtotime($request->startdate)),
+            'start_time'    =>      (!is_null($request->starttime)) ? date("H:i:s",strtotime($request->starttime)) : NULL,
+            'end_date'      =>      date("Y-m-d",strtotime($request->enddate)),
+            'end_time'      =>      (!is_null($request->endtime)) ? date("H:i:s",strtotime($request->endtime)) : NULL,
+            'description'   =>      $request->description,
+            'is_allDay'        =>   ($request->allday == 'true') ? 1 : 0
         ]);
 
         alert()->success($request->name, 'Successfully Saved!')->persistent('Ok');
@@ -59,7 +78,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+
     }
 
     /**
@@ -70,7 +89,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('admin.crud-form.edit-event', compact('event'));
     }
 
     /**
@@ -82,7 +101,18 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //
+        $event->event_name = $request->name;
+        $event->location =  $request->location;
+        $event->start_date = date("Y-m-d",strtotime($request->startdate));
+        $event->start_time = (!is_null($request->starttime)) ? date("H:i:s",strtotime($request->starttime)) : NULL;
+        $event->end_date = date("Y-m-d",strtotime($request->enddate));
+        $event->end_time = (!is_null($request->endtime)) ? date("H:i:s",strtotime($request->endtime)) : NULL;
+        $event->description = $request->description;
+        $event->is_allDay = ($request->allday == 'true') ? 1 : 0;
+        $event->save();
+
+        alert()->success('Successfully Updated!')->persistent('Ok');
+        return back();
     }
 
     /**
@@ -93,6 +123,12 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
+        alert()->success('Successfully Deleted!')->persistent('Ok');
+        return back();
+    }
+    public function publish(Event $event)
+    {
+       return $this->publisher($event);
     }
 }

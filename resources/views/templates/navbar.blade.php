@@ -5,7 +5,7 @@
                 <nav class="classy-navbar justify-content-between" id="magNav">
 
                     <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="/mag/img/core-img/logo.png" alt=""></a>
+                    <a href="index.html" class="nav-brand">SDSSU WBREMS</a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -44,6 +44,8 @@
                                 </a>
                                 @if(Auth::user()->hasRole('role_admin'))   
                                     <a href="{{ route('admin.dashboard') }}" class="submit-video"><span><i class="fa fa-dashboard"></i></span> <span class="video-text">Dashboard</span></a>
+                                @elseif(Auth::user()->hasRole('role_director'))
+                                    <a href="{{ route('director.dashboard') }}" class="submit-video"><span><i class="fa fa-dashboard"></i></span> <span class="video-text">Dashboard</span></a>
                                 @else
                                      <a href="{{ route('user.dashboard') }}" class="submit-video"><span><i class="fa fa-dashboard"></i></span> <span class="video-text">Dashboard</span></a>
                                 @endif

@@ -11,7 +11,7 @@
 		$('#modal-loader').show();      // load ajax loader
 
 		$.ajax({
-			url: '/research/cards/'+id+'/edit',
+			url: 'admin/manage/card/'+id+'/edit',
 			type: 'GET',
 			dataType: 'html'
 		})

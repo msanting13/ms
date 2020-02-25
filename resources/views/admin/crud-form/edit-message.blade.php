@@ -1,9 +1,9 @@
-<form action="{{ route('update.message', $id) }}" method="POST" role="form">
+<form action="{{ route('card.message.update', $card->id) }}" method="POST" role="form">
 	<div class="form-group">
 		@csrf
 		<input name="_method" type="hidden" value="PUT">
-		<label for="message">Message</label>
-		<textarea id="message" class="form-control" name="message">{{ $message->message }}</textarea>
+		<label for="message">Remark</label>
+		<textarea id="message" class="form-control" name="message">{{ $card->message }}</textarea>
 	</div>
 
 	<button type="submit" class="btn btn-primary btn-icon-split">

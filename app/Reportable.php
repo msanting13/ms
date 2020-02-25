@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reportable extends Model
 {
 	protected $table = 'reportable';
-	protected $fillable = ['name','file','user_id'];
+	protected $fillable = ['title','short_description','project_cost','funding_source','agency','sdgs_addressed','beneficiaries','file','user_id'];
 
 	public function reportable()
 	{

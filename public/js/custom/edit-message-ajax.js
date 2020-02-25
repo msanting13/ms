@@ -5,13 +5,13 @@
 
 		let id = $(this).data('id');   // it will get id of clicked row
 
-		$("#modaltitle").html("<i class='fas fa-edit fa-fw'></i> Edit Message");
+		$("#modaltitle").html("<i class='fas fa-edit fa-fw'></i> Edit Remark");
 
 		$('#crud-content').html(''); // leave it blank before ajax call
 		$('#modal-loader').show();      // load ajax loader
 
 		$.ajax({
-			url: '/admin/research/cards/message/'+id+'/edit',
+			url: 'admin/manage/card/message/'+id+'/edit',
 			type: 'GET',
 			dataType: 'html'
 		})

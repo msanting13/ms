@@ -1,8 +1,8 @@
-<form action="{{ route('research.report.file.update', $id) }}" method="POST" enctype="multipart/form-data" role="form">
+<form action="{{ route('report.research.file.update', $research_report->id) }}" method="POST" enctype="multipart/form-data" role="form">
 	<div class="form-group">
 		@csrf
 		<input name="_method" type="hidden" value="PUT">
-		<h4>File: <a href="/public_files/{{ $report->file }}"> {{ $report->file }} </a></h4>
+		<h4>File: <a href="/public_files/{{ $research_report->file }}"> {{ $research_report->file }} </a></h4>
 	</div>
 	<div class="form-group">
 		<label>Select file</label>

@@ -7,9 +7,12 @@ use Yajra\DataTables\Facades\Datatables;
 use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
 use Alert;
+use App\Traits\PublisherTrait;
 
 class NewsController extends Controller
 {
+    use PublisherTrait;
+
     public function __construct()
     {
         $this->file_path = public_path('/public_files/image/news');
@@ -160,19 +163,8 @@ class NewsController extends Controller
         } 
     }
 
-    public function changeStatus($id)
+    public function publish(News $news)
     {
-        $news = News::find($id);
-        if (!$news->is_published) {
-            $news->is_published = TRUE;
-            $message = 'Published';
-        }
-        else
-        {
-            $news->is_published = FALSE;
-            $message = 'Unpublished';
-        }
-        $news->save();
-        return response()->json(['done' => TRUE, 'message' => $message]);
+       return $this->publisher($news);
     }
 }

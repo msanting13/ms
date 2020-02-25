@@ -13,7 +13,7 @@
         <div class="mag-posts-content mt-30 mb-30 p-30 box-shadow">
             <!-- Feature News and Annoucements Posts Area -->
             <!-- News -->
-            <div class="sports-videos-area">
+            <div class="most-viewed-videos mb-30">
                 <!-- Section Title -->
                 @include('news')
             </div>

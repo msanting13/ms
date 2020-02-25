@@ -29,11 +29,11 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         view()->composer([
-            'auth.register'
+            'auth.register',
+            //'admin.manage-users'
         ], 
         function($view){
             $view->with('roles',Role::get());
-            // $view->with('fiscalyears',['']);
         });
 
         Relation::morphMap([

@@ -31,6 +31,8 @@
     <!-- Sidebar -->
     @if(Auth::user()->hasRole('role_admin'))
       @include('includes.admin-sidebar-navbar')
+    @elseif(Auth::user()->hasRole('role_admin'))
+      @include('includes.director-sidebar-navbar')
     @else
       @include('includes.user-sidebar-navbar')
     @endif
@@ -60,7 +62,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <span>Copyright &copy; SDSSU WBREMS 2019</span>
           </div>
         </div>
       </footer>
@@ -91,6 +93,7 @@
   <script src="/assets/plugins/switchery/dist/switchery.min.js"></script>
   <!--sweetalert kit -->
   <script src="/assets/plugins/sweetalert/sweetalert.min.js"></script>
+  <script src="/assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
   <script src="/assets/plugins/dropify/dist/js/dropify.min.js"></script>
   <!--Ckeditor-->
   <script src="/assets/plugins/ckeditor/ckeditor.js"></script>
@@ -101,23 +104,130 @@
   <script src="/sb-admin/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="/sb-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="/sb-admin/js/demo/datatables-demo.js"></script>
-  <script src="/assets/plugins/daterangepicker/custom.min.js"></script>
   <script>
-    $('#startDateTimePicker,#endDateTimePicker').datetimepicker({
-        format: 'MM/DD/YYYY',
-    });
-    $('#startTimeDateTimePicker,#endtimeDateTimePicker').datetimepicker({
-        format: 'hh:mm A'
-    });
-    $('#endDateTimePicker').datetimepicker({
-        useCurrent: false,
-    });
-    $("#startDateTimePicker").on("dp.change", function(e) {
-        $('#endDateTimePicker').data("DateTimePicker").minDate(e.date);
-    });
-    $("#endDateTimePicker").on("dp.change", function(e) {
-        $('#startDateTimePicker').data("DateTimePicker").maxDate(e.date);
-    });
+    function initDateTimePicker() 
+    {
+      $('#startDateTimePicker,#endDateTimePicker').datetimepicker({
+          format: 'MM/DD/YYYY',
+      });
+      $('#startTimeDateTimePicker,#endtimeDateTimePicker').datetimepicker({
+          format: 'hh:mm A'
+      });
+      $('#endDateTimePicker').datetimepicker({
+          useCurrent: false,
+      });
+      $("#startDateTimePicker").on("dp.change", function(e) {
+          $('#endDateTimePicker').data("DateTimePicker").minDate(e.date);
+      });
+      $("#endDateTimePicker").on("dp.change", function(e) {
+          $('#startDateTimePicker').data("DateTimePicker").maxDate(e.date);
+      });
+    }
+    initDateTimePicker();
+  </script>
+  <!--js-switch-->
+  <script>
+    function initJSwitch(selector)
+    {
+        if ($(".js-switch")[0]) {
+            var elems = Array.prototype.slice.call(document.querySelectorAll(selector));
+            elems.forEach(function (html) {
+                var switchery = new Switchery(html, {
+                    color: '#26B99A'
+                });
+            });
+        }
+    }
+    initJSwitch('.all-day');
+  </script>
+  <script type="text/javascript">
+   $(document).ready(function () {
+    $(document).on('change', '.switch', function(a){
+      a.preventDefault();
+      let id = $(this).data('id');
+      $.ajax({
+        url: '@yield('publisher')'+id,
+        type: 'GET',
+        dataType: 'JSON'
+      })
+      .done(function(response){
+        if(response['done'] == true) {
+          swal({
+            title: "Done "+response['message'],
+            icon: "success",
+            button: "OK",
+          })
+        } 
+        else {
+          alert('Error:'+response['message']);
+        }
+      })
+      .fail(function(){
+          swal({
+            title: "Something went wrong!",
+            icon: "error",
+            button: "OK",
+          })
+      });
+    });    
+   }); 
+  </script>
+  <script>
+  function goBack() {
+    window.history.back();
+  }
+  </script>
+  <script>
+var $dOut = $('#date'),
+    $hOut = $('#hours'),
+    $mOut = $('#minutes'),
+    $sOut = $('#seconds'),
+    $ampmOut = $('#ampm');
+var months = [
+  'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+var days = [
+  'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+];
+
+function update(){
+  var date = new Date();
+  
+  var ampm = date.getHours() < 12
+             ? 'AM'
+             : 'PM';
+  
+  var hours = date.getHours() == 0
+              ? 12
+              : date.getHours() > 12
+                ? date.getHours() - 12
+                : date.getHours();
+  
+  var minutes = date.getMinutes() < 10 
+                ? '0' + date.getMinutes() 
+                : date.getMinutes();
+  
+  var seconds = date.getSeconds() < 10 
+                ? '0' + date.getSeconds() 
+                : date.getSeconds();
+  
+  var dayOfWeek = days[date.getDay()];
+  var month = months[date.getMonth()];
+  var day = date.getDate();
+  var year = date.getFullYear();
+  
+  var dateString = dayOfWeek + ', ' + month + ' ' + day + ', ' + year;
+  
+  $dOut.text(dateString);
+  $hOut.text(hours+':');
+  $mOut.text(minutes+':');
+  $sOut.text(seconds);
+  $ampmOut.text(ampm);
+} 
+
+update();
+window.setInterval(update, 1000);
   </script>
 </body>
 </html>
