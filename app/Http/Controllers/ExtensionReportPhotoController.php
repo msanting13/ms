@@ -96,8 +96,10 @@ class ExtensionReportPhotoController extends Controller
      * @param  \App\ExtensionReportPhoto  $extensionReportPhoto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ExtensionReportPhoto $extensionReportPhoto)
+    public function destroy(ExtensionReportPhoto $extension_photo)
     {
-        //
+        $extension_photo->delete();
+        alert()->success('Successfully deleted!')->persistent('Ok');
+        return back();
     }
 }

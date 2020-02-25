@@ -91,7 +91,7 @@
 			});
 		</script>
 		<script src="/js/custom/submit-research-report-ajax.js"></script>
-		<script src="/js/custom/view-report-details-ajax.js"></script>
+		<script src="/js/custom/view-research-report-details-ajax.js"></script>
 		<script src="/js/custom/edit-research-report-ajax.js"></script>
 		<script src="/js/custom/edit-research-report-file-ajax.js"></script>
 		@include('sweet::alert')

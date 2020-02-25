@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth','role'], 'role' => ['role_user','role_dire
 
 	Route::post('/research/card/report/data/{id}','ResearchReportsController@researchReportsData')->name('research.report.card.data');
 
-	// Route::get('/research/report/card/details/{reportable}','ResearchCardsController@showCompleteDetails');
+	Route::get('/research/report/card/details/{research_report}','ResearchReportsController@show');
 
 	//***Extension***//
 	Route::get('extension/card/{card}', 'CardController@showExtension')->name('extension.card.show');
@@ -96,7 +96,7 @@ Route::group(['middleware' => ['role'], 'role' => ['role_user','role_director']]
 		Route::resource('card/extension-report','ExtensionReportsController')->only(['create','store','edit','update','destroy']);
 		Route::post('/extension/card/report/photos/{extensionReport}','ExtensionReportsController@addPhotos')->name('add.extension.report.photo');
 		Route::get('/extension/card/report/photos/{extensionReport}/edit','ExtensionReportsController@editReportPhoto');
-		Route::resource('card/extension-report/photos','ExtensionReportPhotoController')->only(['show','update','destroy']);
+		Route::resource('card/extension-report/extension-photos','ExtensionReportPhotoController')->only(['show','update','destroy']);
 	});
 });
 

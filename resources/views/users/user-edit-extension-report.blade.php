@@ -11,7 +11,7 @@
 	</div>			
 	<div class="form-group">
 		<label>Project cost *</label>
-		<input type="text" id="projectCost" class="form-control" name="project_cost" value="{{ $extensionReport->project_cost }}" required>
+		<input type="text" id="currency-field" pattern="^\₱\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" class="form-control" name="project_cost" value="{{ $extensionReport->project_cost }}" required>
 	</div>
 	<div class="form-group">
 		<label>Funding source *</label>
@@ -36,3 +36,6 @@
 		<span class="text">Update</span>
 	</button>
 </form>
+<script type="text/javascript">
+	currencyFormatter()
+</script>

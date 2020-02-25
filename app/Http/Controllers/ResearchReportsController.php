@@ -85,7 +85,7 @@ class ResearchReportsController extends Controller
      */
     public function show(ResearchReport $research_report)
     {
-        //
+        return view('reports-details.research-reports-details', compact('research_report'));
     }
 
     /**

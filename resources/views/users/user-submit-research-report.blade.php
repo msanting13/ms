@@ -13,7 +13,7 @@
 			</div>			
 			<div class="form-group">
 				<label>Project cost *</label>
-				<input type="text" id="projectCost" class="form-control" name="project_cost" required>
+				<input type="text" id="currency-field" pattern="^\₱\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" class="form-control" name="project_cost" required>
 			</div>
 			<div class="form-group">
 				<label>Funding source *</label>
@@ -50,4 +50,5 @@
 	$(document).ready(function() {
 	    $(".defaultdropify").dropify();
 	});
+	currencyFormatter()
 </script>

@@ -6,7 +6,7 @@
 		let id = $(this).data('id');   // it will get id of clicked row
 		let title = $(this).data("textval");
 
-		$("#modaltitle").html(title);
+		$("#modaltitle").html("Researh Title: "+title);
 		$(".modal-dialog").addClass("modal-lg");
 
 		$('#crud-content').html(''); // leave it blank before ajax call
