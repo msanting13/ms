@@ -6,7 +6,7 @@ use App\ResearchReport;
 use App\Card;
 use Auth;
 use Illuminate\Support\HtmlString;
-use Yajra\DataTables\Facades\Datatables;
+// use Yajra\DataTables\Facades\Datatables;
 use Illuminate\Http\Request;
 
 class ResearchReportsController extends Controller
@@ -17,7 +17,7 @@ class ResearchReportsController extends Controller
     }
     public function researchReportsData($id)
     {
-        return Datatables::of(ResearchReport::query()->where('card_id',$id))->setTransformer(new \App\Transformers\ResearchReportTransformer)->make(true);  
+        return datatables()->of(ResearchReport::query()->where('card_id',$id))->setTransformer(new \App\Transformers\ResearchReportTransformer)->make(true);  
     }
     /**
      * Display a listing of the resource.

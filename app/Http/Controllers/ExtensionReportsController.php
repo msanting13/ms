@@ -7,7 +7,7 @@ use App\Card;
 use Auth;
 use App\ExtensionReportPhoto;
 use Illuminate\Support\HtmlString;
-use Yajra\DataTables\Facades\Datatables;
+// use Yajra\DataTables\Facades\Datatables;
 use Illuminate\Http\Request;
 
 class ExtensionReportsController extends Controller
@@ -19,7 +19,7 @@ class ExtensionReportsController extends Controller
 
     public function extensionReportsData($id)
     {
-        return Datatables::of(ExtensionReport::query()->where('card_id',$id))->setTransformer(new \App\Transformers\ExtensionReportTransformer)->make(true);  
+        return datatables()->of(ExtensionReport::query()->where('card_id',$id))->setTransformer(new \App\Transformers\ExtensionReportTransformer)->make(true);  
     }
     /**
      * Display a listing of the resource.
