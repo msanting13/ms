@@ -7,7 +7,7 @@
 		@if(Auth::user()->hasRole('role_user') || Auth::user()->hasRole('role_director'))
 			<div class="btn-group" role="group" aria-label="Basic example">
 			  <button type="button" class="btn btn-sm btn-secondary" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
-			  <button type="button" class="btn btn-sm btn-primary submit-report {{ ($card->is_lock)? 'disabled' : '' }}" data-toggle="modal" data-target="#modal-id-crud" data-id="{{ $card->id }}" data-backdrop="static"><i class="fas fa-upload fa-sm text-white-50"></i> Submit report</button>
+			  <button type="button" class="btn btn-sm btn-primary submit-report" data-toggle="modal" data-target="#modal-id-crud" data-id="{{ $card->id }}" data-backdrop="static" {{ ($card->is_lock)? 'disabled' : '' }}><i class="fas fa-upload fa-sm text-white-50"></i> Submit report</button>
 			</div>
 		@else
 			<button type="button" class="btn btn-sm btn-secondary" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>

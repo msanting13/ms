@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Card;
 use App\Role;
+use App\User;
 use Illuminate\Support\HtmlString;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,9 @@ class ExtensionBoardsController extends Controller
 {
     public function countUsers()
     {
-        $role = Role::with('users')->where('name','role_user')->first();
-        return $role->users->count();
+        return User::whereHas('roles', function($query){
+            $query->where('name','role_user')->orWhere('name', 'role_director');
+        })->count();
     }
     public function extensionCardData($type)
     {
