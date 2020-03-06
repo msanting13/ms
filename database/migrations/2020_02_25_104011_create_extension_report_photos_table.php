@@ -17,6 +17,7 @@ class CreateExtensionReportPhotosTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('extension_report_id');
             $table->string('photo');
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }

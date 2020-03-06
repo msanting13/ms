@@ -51,7 +51,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">
-					<form action="{{ action('EventController@store') }}" method="POST" enctype="multipart/form-data" role="form">	
+					<form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data" role="form">	
 						<div class="form-group">
 							@csrf
 							<label for="eventName">Event name *</label>
@@ -153,7 +153,9 @@
 		    	{ "data": "action" },
 		    	],
 		    	"drawCallback": function(settings){
-		    		initJSwitch('.switch');
+					initJSwitch('.switch');
+					initbootstrapSwitch();
+					postUpostSwitcher();
 		    		deleteFunction();
 		    	}
 		    });

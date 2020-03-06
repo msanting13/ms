@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExtensionReportPhoto extends Model
 {
-	protected $fillable = ['extension_report_id','photo'];
+	protected $fillable = ['extension_report_id','photo','url'];
 
 	public function extensionReports()
 	{

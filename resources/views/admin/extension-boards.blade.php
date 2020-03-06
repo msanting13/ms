@@ -18,24 +18,26 @@
 					<thead>
 						<tr>
 							<th>ID#</th>
-							<th>Name</th>
+							<th>Type</th>
+							<th>Description</th>
 							<th>Fiscal year</th>
 							<th>Remark</th>
 							<th>Status</th>
-							<th>Submitted</th>
-							<th>Date updated</th>
+							<th>Progress</th>
+							<th>Date created</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
 							<th>ID#</th>
-							<th>Name</th>
+							<th>Type</th>
+							<th>Description</th>
 							<th>Fiscal year</th>
 							<th>Remark</th>
 							<th>Status</th>
-							<th>Submitted</th>
-							<th>Date updated</th>
+							<th>Progress</th>
+							<th>Date created</th>
 							<th>Action</th>
 						</tr>
 					</tfoot>
@@ -55,21 +57,23 @@
 			    	"processing": true,
 			    	"serverSide": true,
 			    	"ajax":{
-			    		"url": "{{ route('extensions.card.data','extension') }}",
-			    		"type": "POST",
-			    		"data":{ _token: "{{csrf_token()}}"}
+			    		"url": "{{ route('admin.extensions.card.data','extension') }}",
+			    		"type": "GET"
 			    	},
 			    	"columns": [
-			    	{ "data": "id" },
-			    	{ "data": "card_name" },
-			    	{ "data": "fiscal_year" },
-			    	{ "data": "message" },
-			    	{ "data": "status" },
-			    	{ "data": "counts" },
-			    	{ "data": "updated_at" },
-			    	{ "data": "action" },
+						{ "data": "id" },
+						{ "data": "card_name" },
+						{ "data": "description" },
+						{ "data": "fiscal_year" },
+						{ "data": "message" },
+						{ "data": "status" },
+						{ "data": "counts" },
+						{ "data": "created_at" },
+						{ "data": "action" },
 			    	],
 			    	"drawCallback": function(settings){
+						initbootstrapSwitch();
+						postUpostSwitcher();
 			    		deleteFunction();
 
 			    		$(".lock-btn").click(function(){
@@ -105,6 +109,6 @@
 		<script src="/js/custom/edit-card-ajax.js"></script>
 		<script src="/js/custom/edit-message-ajax.js"></script>
 		<script src="/js/custom/submit-extension-report-ajax.js"></script>
-		@include('sweet::alert')
 	@endsection
+	@section('publisher','/admin/card/status/')
 @endsection

@@ -4,19 +4,21 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>SB Admin 2 - @yield('title')</title>
+  <title>WBREMS - @yield('title')</title>
   <!-- Custom fonts for this template-->
   <link href="/sb-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="/sb-admin/css/sb-admin-2.css" rel="stylesheet">
   <link href="/sb-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="/assets/plugins/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet">
   <!--Sweet Alert-->
-  <link href="/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" integrity="sha256-zuyRv+YsWwh1XR5tsrZ7VCfGqUmmPmqBjIvJgQWoSDo=" crossorigin="anonymous" /> -->
+  <link href="/assets/plugins/sweetalert/sweetalert.min.css" rel="stylesheet" type="text/css">
   <link href="/assets/plugins/dropify/dist/css/dropify.min.css" rel="stylesheet">
   <link href="/sb-admin/css/custom.css" rel="stylesheet">
   <!-- Switchery -->
@@ -31,7 +33,7 @@
     <!-- Sidebar -->
     @if(Auth::user()->hasRole('role_admin'))
       @include('includes.admin-sidebar-navbar')
-    @elseif(Auth::user()->hasRole('role_admin'))
+    @elseif(Auth::user()->hasRole('role_director'))
       @include('includes.director-sidebar-navbar')
     @else
       @include('includes.user-sidebar-navbar')
@@ -92,7 +94,12 @@
   <!-- Switchery -->
   <script src="/assets/plugins/switchery/dist/switchery.min.js"></script>
   <!--sweetalert kit -->
-  <script src="/assets/plugins/sweetalert/sweetalert.min.js"></script>
+  {{-- @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"]) --}}
+  <!-- <script src="/assets/plugins/sweetalert/sweetalert.min.js"></script> -->
+  <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js" integrity="sha256-JirYRqbf+qzfqVtEE4GETyHlAbiCpC005yBTa4rj6xg=" crossorigin="anonymous"></script> -->
+  <script src="/assets/plugins/sweetalert/sweetalert.all.min.js"></script>
+  @include('sweetalert::alert')
   <script src="/assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
   <script src="/assets/plugins/dropify/dist/js/dropify.min.js"></script>
   <!--Ckeditor-->
@@ -140,37 +147,106 @@
     }
     initJSwitch('.all-day');
   </script>
+  <script src="/assets/plugins/bootstrap-switch/custom-switch.js"></script>
+  <script src="/assets/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
   <script type="text/javascript">
-   $(document).ready(function () {
-    $(document).on('change', '.switch', function(a){
-      a.preventDefault();
-      let id = $(this).data('id');
-      $.ajax({
-        url: '@yield('publisher')'+id,
-        type: 'GET',
-        dataType: 'JSON'
-      })
-      .done(function(response){
-        if(response['done'] == true) {
-          swal({
-            title: "Done "+response['message'],
-            icon: "success",
-            button: "OK",
-          })
-        } 
-        else {
-          alert('Error:'+response['message']);
+    function initbootstrapSwitch(){
+      $(".bt-switch input[type='checkbox']").bootstrapSwitch();
+    }
+  </script>
+  <script type="text/javascript">
+ function postUpostSwitcher(){
+    var stopchange = false;
+
+    $('.post-unpost-switch').on('switchChange.bootstrapSwitch', function (e, state) {
+
+        let message;
+        let obj = $(this);
+        let id = $(this).data('id');
+        let title = $(this).data("textval");
+        let currentState = $(this).val();
+
+        if(currentState == "off"){
+            message = "Post";
+        }else{
+            message = "Unpost";
         }
-      })
-      .fail(function(){
-          swal({
-            title: "Something went wrong!",
-            icon: "error",
-            button: "OK",
-          })
-      });
-    });    
-   }); 
+
+        if(stopchange === false)
+        {
+            swal.fire({
+                title: 'Are you sure you want to '+message+'?',
+                text: title,
+                icon: 'warning',
+                input: 'password',
+                inputPlaceholder: 'Enter administrator password',
+                showCancelButton: true,
+                confirmButtonText: 'Yes '+message+' it!',
+                allowOutsideClick: false,
+                inputValidator: (value) => {
+                    if (!value) {
+                      return 'You need to write something!'
+                  }
+              }
+            })
+            .then((result) => {
+                if (result.value) {
+                    let dataString = 'password='+result.value + '&id='+id;
+                    $.ajax({
+                        url:'@yield('publisher')'+id,
+                        type:"GET",
+                        dataType:"json",
+                        data: dataString,
+                        success:function(data){
+                            if (data.done == true) {
+                                Swal.fire({
+                                  icon: 'success',
+                                  title: data.message,
+                              }).then((isConfirm) => {
+                                if (isConfirm) {
+                                  if(data.message == "Posted"){
+                                    obj.attr("value","on")
+                                  }else{
+                                    obj.attr("value","off")
+                                  }
+                                } 
+                              });
+
+                            }
+                            if (data.error == false) {
+                                Swal.fire({
+                                  icon: 'warning',
+                                  title: data.message,
+                              }).then((isConfirm) => {
+                                if (isConfirm) {
+                                  if(stopchange === false){
+                                    stopchange = true;
+                                    obj.bootstrapSwitch('toggleState');
+                                    stopchange = false;
+                                  }
+                                } 
+                        });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                title: "Something went wrong!",
+                                icon: "warning",
+                            });
+                        }
+                    });
+
+                }else if(result.dismiss == 'cancel'){
+                    if(stopchange === false){
+                        stopchange = true;
+                        obj.bootstrapSwitch('toggleState');
+                        stopchange = false;
+                    }
+                }
+            });
+        }
+    });
+ }
   </script>
   <script>
   function goBack() {
@@ -312,7 +388,14 @@ function currencyFormatter(){
           caret_pos = updated_len - original_len + caret_pos;
           input[0].setSelectionRange(caret_pos, caret_pos);
         }
- } 
+  } 
+  currencyFormatter();
+  deleteFunction();
   </script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		  $(".defaultdropify").dropify();
+		});
+	</script>
 </body>
 </html>

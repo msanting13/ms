@@ -1,4 +1,4 @@
-<form action="{{ action('NewsController@uploadNewsCover',$news->id) }}" method="POST" enctype="multipart/form-data" role="form">
+<form action="{{ route('news.upload.cover',$news->id) }}" method="POST" enctype="multipart/form-data" role="form">
 	<div class="row">
 		<div class="col-md-12">
 			<img src="/public_files/image/news/{{ $news->cover_photos }}" style="width: 320px;">

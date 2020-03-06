@@ -1,4 +1,4 @@
-<form action="{{ action('EventController@update', $event->id) }}" method="POST" role="form">
+<form action="{{ route('events.update', $event->id) }}" method="POST" role="form">
 	<div class="form-group">
 		@csrf
 		<input name="_method" type="hidden" value="PUT">
@@ -64,9 +64,9 @@
 	</div>		
 	<button type="submit" class="btn btn-primary btn-icon-split">
 		<span class="icon text-white-50">
-			<i class="fas fa-plus"></i>
+			<i class="fas fa-edit"></i>
 		</span>
-		<span class="text">Save</span>
+		<span class="text">Update</span>
 	</button>				
 </form>
 <script type="text/javascript">

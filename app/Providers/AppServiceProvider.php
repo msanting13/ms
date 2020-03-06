@@ -32,14 +32,14 @@ class AppServiceProvider extends ServiceProvider
         view()->composer([
             'auth.register',
             'users.user-dashboard',
-            'director.director-dashboards',
+            'directors.director-dashboards',
             //'admin.manage-users'
         ], 
         function($view){
-            $view->with('totalnumbersOfActiveReportsForResearch',Card::where('is_lock', FALSE)->where('type','research')->count());
-            $view->with('totalnumbersOfActiveReportsForExtension',Card::where('is_lock', FALSE)->where('type','extension')->count());
-            $view->with('totalnumbersOfLockedReportsForResearch',Card::where('is_lock', TRUE)->where('type','research')->count());
-            $view->with('totalnumbersOfLockedReportsForExtension',Card::where('is_lock', TRUE)->where('type','extension')->count());
+            $view->with('totalnumbersOfActiveReportsForResearch',Card::where('is_lock', FALSE)->where('type','research')->where('is_published', TRUE)->count());
+            $view->with('totalnumbersOfActiveReportsForExtension',Card::where('is_lock', FALSE)->where('type','extension')->where('is_published', TRUE)->count());
+            $view->with('totalnumbersOfLockedReportsForResearch',Card::where('is_lock', TRUE)->where('type','research')->where('is_published', TRUE)->count());
+            $view->with('totalnumbersOfLockedReportsForExtension',Card::where('is_lock', TRUE)->where('type','extension')->where('is_published', TRUE)->count());
             $view->with('roles',Role::get());
         });
 

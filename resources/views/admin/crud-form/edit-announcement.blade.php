@@ -1,4 +1,4 @@
-<form action="{{ action('AnnouncementController@update', $announcement->id) }}" method="POST" role="form">	
+<form action="{{ route('announcements.update', $announcement->id) }}" method="POST" role="form">	
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="border-right: 1px solid#ccc;">
 			<div class="form-group">
@@ -25,9 +25,9 @@
 			</div>				
 			<button type="submit" class="btn btn-primary btn-icon-split">
 				<span class="icon text-white-50">
-					<i class="fas fa-plus"></i>
+					<i class="fas fa-edit"></i>
 				</span>
-				<span class="text">Save</span>
+				<span class="text">Update</span>
 			</button>
 		</div>
 	</div>				

@@ -1,4 +1,4 @@
-<form action="{{ action('NewsController@update', $news->id) }}" method="POST" role="form">	
+<form action="{{ route('news.update', $news->id) }}" method="POST" role="form">	
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="border-right: 1px solid#ccc;">
 			<div class="form-group">

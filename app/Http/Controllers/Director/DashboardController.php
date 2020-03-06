@@ -9,6 +9,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-    	return view('director.director-dashboards');
+    	return view('directors.director-dashboards');
     }
 }

@@ -21,7 +21,7 @@
 				@else
 					<i class="fas fa-unlock fa-md fa-fw" style="color: #36b9cc;"></i>
 				@endif
-				{{ $card->card_name.' '.$card->fiscal_year }}
+				{{ $card->card_name." "."FY ".$card->fiscal_year }}
 			</h6>
 		</div>
 		<div class="card-body">
@@ -69,7 +69,7 @@
 			    	"processing": true,
 			    	"serverSide": true,
 			    	"ajax":{
-			    		"url": "{{ route('research.report.card.data',$card->id) }}",
+			    		"url": "{{ route('admin.research.report.data',$card->id) }}",
 			    		"type": "POST",
 			    		"data":{ _token: "{{csrf_token()}}"}
 			    	},
@@ -94,6 +94,5 @@
 		<script src="/js/custom/view-research-report-details-ajax.js"></script>
 		<script src="/js/custom/edit-research-report-ajax.js"></script>
 		<script src="/js/custom/edit-research-report-file-ajax.js"></script>
-		@include('sweet::alert')
 	@endsection
 @endsection

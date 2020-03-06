@@ -22,8 +22,11 @@ class CreateExtensionReportsTable extends Migration
             $table->string('agency');
             $table->string('sdgs_addressed');
             $table->longText('beneficiaries');
+            $table->string('file');
+            $table->string('url')->nullable();
             $table->bigInteger('user_id');
             $table->bigInteger('card_id');
+            $table->boolean('is_published')->default(0);
             $table->timestamps();
         });
     }

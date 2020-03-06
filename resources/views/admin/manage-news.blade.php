@@ -50,7 +50,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">
-					<form action="{{ action('NewsController@store') }}" method="POST" enctype="multipart/form-data" role="form">	
+					<form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data" role="form">	
 						<div class="row">
 							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="border-right: 1px solid#ccc;">
 								<div class="form-group">
@@ -130,7 +130,8 @@
 		    	{ "data": "action" },
 		    	],
 		    	"drawCallback": function(settings){
-		    		initJSwitch('.switch');
+					initbootstrapSwitch();
+					postUpostSwitcher();
 		    		deleteFunction();
 		    	}
 		    });
@@ -138,7 +139,6 @@
 	</script>
 	<script type="text/javascript" src="/js/custom/edit-news-ajax.js"></script>
 	<script type="text/javascript" src="/js/custom/view-edit-news-photo-ajax.js"></script>
-	@include('sweet::alert')
 	@endsection
 	@section('publisher','/news/status/');
 @endsection

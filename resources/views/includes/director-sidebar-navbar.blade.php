@@ -12,7 +12,7 @@
 
   <!-- Nav Item - Dashboard -->
   <li class="nav-item">
-    <a class="nav-link" href="{{ route('admin.dashboard') }}">
+    <a class="nav-link" href="{{ route('director.dashboard') }}">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Dashboard</span></a>
     </li>
@@ -22,55 +22,23 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-      Report's Management
+      Manage Submissions
     </div>
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Reports</span>
+        <i class="fas fa-fw fa-plus"></i>
+        <span>Submit Report's For</span>
       </a>
       <div id="collapseReports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="{{ action('ResearchBoardsController@index') }}">Research</a>
-          <a class="collapse-item" href="#">Extension</a>
+          <a class="collapse-item" href="{{ route('director-research') }}">Research</a>
+          <a class="collapse-item" href="{{ route('director-extension') }}">Extension</a>
         </div>
       </div>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      Posts Management
-    </div>
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePosts" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-cog"></i>
-        <span>Posts</span>
-      </a>
-      <div id="collapsePosts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="{{ url('/manage/news') }}">News</a>
-          <a class="collapse-item" href="{{ url('/manage/announcements') }}">Announcements</a>
-          <a class="collapse-item" href="{{ url('/manage/events') }}">Events</a>
-        </div>
-      </div>
-    </li>
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      Users Management
-    </div>
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUserManagement" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-users"></i>
-        <span>Users</span>
-      </a>
-      <div id="collapseUserManagement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-         <a class="collapse-item" href="{{ url('/manage/users') }}">Users</a>
-        </div>
-      </div>
-    </li>
-    <hr class="sidebar-divider d-none d-md-block">
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
       <button class="rounded-circle border-0" id="sidebarToggle"></button>

@@ -18,24 +18,26 @@
 					<thead>
 						<tr>
 							<th>ID#</th>
-							<th>Name</th>
+							<th>Type</th>
+							<th>Description</th>
 							<th>Fiscal year</th>
 							<th>Remark</th>
 							<th>Status</th>
-							<th>Submitted</th>
-							<th>Date updated</th>
+							<th>Progress</th>
+							<th>Date created</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
 							<th>ID#</th>
-							<th>Name</th>
+							<th>Type</th>
+							<th>Description</th>
 							<th>Fiscal year</th>
 							<th>Remark</th>
 							<th>Status</th>
-							<th>Submitted</th>
-							<th>Date updated</th>
+							<th>Progress</th>
+							<th>Date created</th>
 							<th>Action</th>
 						</tr>
 					</tfoot>
@@ -49,27 +51,29 @@
 			$(document).ready(function() {
 			    $('#researchCardDataTable').DataTable({
 			    	"columnDefs": [{ 
-			    		"orderable": false, "targets": [7]
+			    		"orderable": false, "targets": [5,6,8]
 			    	}],
-			    	"order": [[ 6, "desc" ]],
-			    	"processing": true,
-			    	"serverSide": true,
+			    	"order": [[ 7, "desc" ]],
+			    	"processing": false,
+			    	"serverSide": false,
 			    	"ajax":{
-			    		"url": "{{ route('research.card.data','research') }}",
-			    		"type": "POST",
-			    		"data":{ _token: "{{csrf_token()}}"}
+			    		"url": "{{ route('admin.research.card.data','research') }}",
+			    		"type": "GET"
 			    	},
 			    	"columns": [
 			    	{ "data": "id" },
 			    	{ "data": "card_name" },
+			    	{ "data": "description" },
 			    	{ "data": "fiscal_year" },
 			    	{ "data": "message" },
 			    	{ "data": "status" },
 			    	{ "data": "counts" },
-			    	{ "data": "updated_at" },
+			    	{ "data": "created_at" },
 			    	{ "data": "action" },
 			    	],
 			    	"drawCallback": function(settings){
+						initbootstrapSwitch();
+						postUpostSwitcher();
 			    		deleteFunction();
 
 			    		$(".lock-btn").click(function(){
@@ -105,6 +109,6 @@
 		<script src="/js/custom/edit-card-ajax.js"></script>
 		<script src="/js/custom/edit-message-ajax.js"></script>
 		<script src="/js/custom/submit-research-report-ajax.js"></script>
-		@include('sweet::alert')
 	@endsection
+	@section('publisher','/admin/card/status/')
 @endsection

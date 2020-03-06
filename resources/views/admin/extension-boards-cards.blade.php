@@ -69,7 +69,7 @@
 			    	"processing": true,
 			    	"serverSide": true,
 			    	"ajax":{
-			    		"url": "{{ route('extension.report.card.data',$card->id) }}",
+			    		"url": "{{ route('admin.extension.report.data',$card->id) }}",
 			    		"type": "POST",
 			    		"data":{ _token: "{{csrf_token()}}"}
 			    	},

@@ -15,12 +15,14 @@ class CreateCardsTable extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('card_name');
+            $table->enum('card_name', ['Program', 'Project', 'Activities']);
             $table->text('description')->nullable();
             $table->longtext('message')->nullable();
-            $table->string('fiscal_year')->nullable();
+            $table->year('fiscal_year')->nullable();
             $table->enum('type', ['research', 'extension']);
+            $table->timestamp('deadline')->nullable();
             $table->boolean('is_lock')->default(0);
+            $table->boolean('is_published')->default(0);
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@
 
 		let id = $(this).data('id');   // it will get id of clicked row
 
-		$("#modaltitle").html("<i class='fas fa-edit fa-fw'></i> Edit Card");
+		$("#modaltitle").html("<i class='fas fa-edit fa-fw'></i> Edit Report");
 
 		$('#crud-content').html(''); // leave it blank before ajax call
 		$('#modal-loader').show();      // load ajax loader

@@ -10,7 +10,7 @@
 			<i class="fas fa-trash fa-sm fa-fw text-gray-600"></i>
 			Delete
 		</a>
-		<form id="delete-form{{ $event->id }}" action="{{ action('EventController@destroy',$event->id) }}" method="POST">
+		<form id="delete-form{{ $event->id }}" action="{{ route('events.destroy',$event->id) }}" method="POST">
 			@csrf
 			<input name="_method" type="hidden" value="DELETE">
 		</form>

@@ -1,6 +1,6 @@
 	<div class="row">	
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="border-right: 1px solid#ccc;">
-			<form action="{{ action('RegisterUserController@update', $user->id) }}" method="POST" role="form">	
+			<form action="{{ route('register-users.update', $register_user->id) }}" method="POST" role="form">	
 				<div class="form-group">
 					<legend>Profile</legend>
 				</div>
@@ -8,16 +8,16 @@
 					@csrf
 					<input name="_method" type="hidden" value="PUT">
 					<label for="fullname">Fullname</label>
-					<input type="text" id="fullname" class="form-control" value="{{ $user->name }}" name="name" required>
+					<input type="text" id="fullname" class="form-control" value="{{ $register_user->name }}" name="name" required>
 				</div>				
 				<div class="form-group">
 					<label for="position">Position</label>
-					<input type="text" id="position" class="form-control" value="{{ $user->position }}" name="position" required>
+					<input type="text" id="position" class="form-control" value="{{ $register_user->position }}" name="position" required>
 				</div>
 				<div class="form-group">
 					<label for="campuses">Campus</label>
 					<select id="campuses" name="campuses" class="form-control" required>
-						<option>{{ $user->campuses }}</option>
+						<option>{{ $register_user->campuses }}</option>
 						@foreach($campuses as $campus)
 							<option>{{ $campus }}</option>
 						@endforeach
@@ -32,7 +32,7 @@
 			</form>	
 			</div>
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-				<form action="{{ action('RegisterUserController@updateUserAccount', $user->id) }}" method="POST">
+				<form action="{{ route('admin.update.register-user-account', $register_user->id) }}" method="POST">
 				<div class="form-group">
 					<legend>Account</legend>
 				</div>
@@ -40,7 +40,7 @@
 					@csrf
 					<input name="_method" type="hidden" value="PUT">
 					<label for="Email">Email</label>
-					<input type="email" id="email" class="form-control" name="email" value="{{ $user->email }}" required>
+					<input type="email" id="email" class="form-control" name="email" value="{{ $register_user->email }}" required>
 				</div>				
 				<div class="form-group">
 					<label for="password">New password</label>

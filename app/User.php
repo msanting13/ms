@@ -43,9 +43,9 @@ class User extends Authenticatable
         return ['Tandag','Cantilan','San Miguel','Cagwait','Lianga','Tagbina','Bislig'];
     }
 
-    public function researchCards()
+    public function researchReports()
     {
-        return $this->hasMany('App\ResearchCard', 'user_id');
+        return $this->hasMany('App\ResearchReport', 'user_id');
     }
 
     public function roles()

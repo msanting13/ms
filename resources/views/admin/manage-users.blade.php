@@ -73,11 +73,11 @@
 										<a class="dropdown-item edit-users" href="javascript:void(0)" data-toggle="modal" data-target="#modal-id-crud" data-id="{{ $user->id }}" data-backdrop="static"><i class="fas fa-edit fa-sm fa-fw text-gray-600"></i> Edit</a>
 										<div class="dropdown-divider"></div>
 
-										<a class="dropdown-item btn-delete" href="javascript:void(0)" title="Delete" data-id="{{-- {{ $announcement->id }} --}}" data-textval="{{-- {{ $announcement->title }} --}}">
+										<a class="dropdown-item btn-delete" href="javascript:void(0)" title="Delete" data-id="{{ $user->id }}" data-textval="{{ $user->name }}">
 											<i class="fas fa-trash fa-sm fa-fw text-gray-600"></i>
 											Delete
 										</a>
-										<form id="delete-form{{-- {{ $announcement->id }} --}}" action="{{-- {{ action('AnnouncementController@destroy',$announcement->id) }} --}}" method="POST">
+										<form id="delete-form{{ $user->id }}" action="{{ route('register-users.destroy', $user->id) }}" method="POST">
 											@csrf
 											<input name="_method" type="hidden" value="DELETE">
 										</form>
@@ -99,7 +99,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">
-					<form action="{{ action('RegisterUserController@store') }}" method="POST" role="form">	
+					<form action="{{ route('register-users.store') }}" method="POST" role="form">	
 						<div class="row">
 							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="border-right: 1px solid#ccc;">
 								<div class="form-group">
@@ -108,15 +108,26 @@
 								<div class="form-group">
 									@csrf
 									<label for="fullname">Fullname</label>
-									<input type="text" id="fullname" class="form-control" name="name" required>
+									<input type="text" id="fullname" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required>
+									@error('name')
+										<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+										</span>
+            						@enderror
 								</div>				
 								<div class="form-group">
 									<label for="position">Position</label>
-									<input type="text" id="position" class="form-control" name="position" required>
+									<input type="text" id="position" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}" required>
+									@error('position')
+										<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+										</span>
+            						@enderror
 								</div>
 								<div class="form-group">
 									<label for="campuses">Campus</label>
 									<select id="campuses" name="campuses" class="form-control" required>
+										<option>{{ old('campuses') }}</option>
 										@foreach($campuses as $campus)
 											<option>{{ $campus }}</option>
 										@endforeach
@@ -128,13 +139,26 @@
 									<legend>Account</legend>
 								</div>
 								<div class="form-group">
-									@csrf
 									<label for="Email">Email</label>
-									<input type="email" id="email" class="form-control" name="email" required>
+									<input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
+									@error('email')
+										<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+										</span>
+            						@enderror
 								</div>				
 								<div class="form-group">
 									<label for="password">Password</label>
-									<input type="password" id="password" class="form-control" name="password" required>
+									<input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+									@error('password')
+										<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+										</span>
+            						@enderror
+								</div>
+								<div class="form-group">
+									<label for="password-confirm">Confirm Password</label>
+									<input type="password" id="password-confirm" class="form-control" name="password_confirmation" required autocomplete="new-password" required>
 								</div>
 								<button type="submit" class="btn btn-primary btn-icon-split">
 									<span class="icon text-white-50">
@@ -156,6 +180,7 @@
 	@section('ajax-request')
 		<script type="text/javascript" src="/js/custom/edit-users-ajax.js"></script>
 		<script type="text/javascript" src="/js/custom/switch-ajax.js"></script>
+		<script>deleteFunction()</script>
 		@include('sweet::alert')
 	@endsection
 @endsection

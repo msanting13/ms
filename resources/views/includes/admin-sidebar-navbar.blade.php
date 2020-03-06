@@ -22,7 +22,7 @@
     </div>
 
       <li class="nav-item">
-        <a class="nav-link" href="#modal-id-create" data-toggle="modal">
+        <a class="nav-link" href="{{ route('card.create') }}"> <!--href="#modal-id-create" data-toggle="modal"-->
           <strong>
             <i class="fas fa-fw fa-plus"></i>
             <span>Create</span>
@@ -37,8 +37,8 @@
       </a>
       <div id="collapseReports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="{{ route('research.index') }}">Research</a>
-          <a class="collapse-item" href="{{ route('extension.index') }}">Extension</a>
+          <a class="collapse-item" href="{{ route('admin-research.index') }}">Research</a>
+          <a class="collapse-item" href="{{ route('admin-extension.index') }}">Extension</a>
         </div>
       </div>
     </li>
@@ -55,9 +55,9 @@
       </a>
       <div id="collapsePosts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="{{ url('/manage/news') }}">News</a>
-          <a class="collapse-item" href="{{ url('/manage/announcements') }}">Announcements</a>
-          <a class="collapse-item" href="{{ url('/manage/events') }}">Events</a>
+          <a class="collapse-item" href="{{ route('news.index') }}">News</a>
+          <a class="collapse-item" href="{{ route('announcements.index') }}">Announcements</a>
+          <a class="collapse-item" href="{{ route('events.index') }}">Events</a>
         </div>
       </div>
     </li>
@@ -74,7 +74,7 @@
       </a>
       <div id="collapseUserManagement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-         <a class="collapse-item" href="{{ url('/manage/users') }}">Users</a>
+         <a class="collapse-item" href="{{ route('register-users.index') }}">Users</a>
         </div>
       </div>
     </li>
@@ -84,7 +84,7 @@
       <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
   </ul>
-<div class="modal fade" id="modal-id-create">
+{{-- <div class="modal fade" id="modal-id-create">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -105,7 +105,7 @@
             <label for="fiscalYear">Fiscal-Year</label>
             <select id="fiscalYear" class="form-control" name="fiscal_year" required>
               @for($i=date('Y'); $i >= 2000; $i--)
-              <option>FY {{ $i }}</option>
+              <option>{{ $i }}</option>
               @endfor
             </select>
           </div>
@@ -118,7 +118,7 @@
             <textarea id="description" class="form-control" name="description"></textarea>
           </div>
           <div class="form-group">
-            <label for="message">Message</label>
+            <label for="message">Remarks</label>
             <textarea id="message" class="form-control" name="message"></textarea>
           </div>            
 
@@ -135,4 +135,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}

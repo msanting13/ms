@@ -12,7 +12,7 @@
 		$('#modal-loader').show();      // load ajax loader
 
 		$.ajax({
-			url: '/manage/users/'+id+'/edit',
+			url: '/manage/register-users/'+id+'/edit',
 			type: 'GET',
 			dataType: 'html'
 		})
