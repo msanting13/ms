@@ -20,7 +20,7 @@ class ExtensionReportsController extends Controller
 
     public function extensionReportsData($id)
     {
-        return datatables()->of(ExtensionReport::query()->where('card_id',$id))->setTransformer(new \App\Transformers\ExtensionReportTransformer)->make(true);  
+        return datatables()->of(ExtensionReport::where('card_id',$id)->where('is_published', true)->get())->setTransformer(new \App\Transformers\ExtensionReportTransformer)->make(true);  
     }
     /**
      * Display a listing of the resource.

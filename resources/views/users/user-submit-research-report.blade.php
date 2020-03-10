@@ -8,19 +8,8 @@
 	</div>
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h5 class="m-0 font-weight-bold text-primary">
-				{{ $card->card_name." "."FY ".$card->fiscal_year }}
-				@if($card->is_lock)
-					<i class="fas fa-lock fa-md fa-fw" style="color: #e74a3b;"></i>
-				@else
-					<i class="fas fa-unlock fa-md fa-fw" style="color: #36b9cc;"></i>
-				@endif
-			</h5>
 			<h6 class="m-0 font-weight-bold text-primary">
-				Description: {{ $card->description }}
-			</h6>
-			<h6 class="m-0 font-weight-bold text-primary">
-				Deadline: {{ $card->deadline->format('F d,Y') }}
+				{{ ucfirst($card->type)."/".$card->card_name." "."FY ".$card->fiscal_year }} Form
 			</h6>
 		</div>
 		<div class="card-body">

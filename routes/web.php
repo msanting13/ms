@@ -15,20 +15,28 @@
 //     return view('home');
 // });
 
-// use Auth;
-
-Route::get('/percentage', function(){
-	if(!Hash::check('password', Auth::user()->password)){
-		return 'not';
-	}
-})->name('test');
 
 Auth::routes();
+
+Route::group(['middleware' => ['auth','role'], 'role' => ['role_admin','role_director']], function(){
+	Route::prefix('reports')->group(function(){
+		Route::resource('research','GenerateResearchReportsController');
+		Route::get('index/data','GenerateResearchReportsController@indexData')->name('research-forms-data');
+		Route::get('show/data/{id}','GenerateResearchReportsController@showData')->name('research-report-data');
+
+		Route::resource('extension','GenerateExtensionReportsController');
+		Route::get('extension/index/data','GenerateExtensionReportsController@indexData')->name('extension-forms-data');
+		Route::get('extension/show/data/{id}','GenerateExtensionReportsController@showData')->name('extension-report-data');
+	});
+});
+
 
 //Administrator/Vice President for Research & Extension
 Route::group(['middleware' => ['auth','role'], 'role' => ['role_admin']], function(){
 	Route::prefix('admin')->group(function(){
-		Route::get('dashboard/','DashboardController@index')->name('admin.dashboard');
+		Route::get('dashboard/','Admin\DashboardController@index')->name('admin.dashboard');
+		Route::get('dashboard/research-progress/status/data','Admin\DashboardController@researchProgressStatus')->name('admin.dashboard.research.progress.status');
+		Route::get('dashboard/extension-progress/status/data','Admin\DashboardController@extensionProgressStatus')->name('admin.dashboard.extension.progress.status');
 
 		Route::resource('manage/card', 'Admin\CardController');
 		Route::get('/manage/card/message/{card}/edit','Admin\CardController@editMessage')->name('card.message.edit');
@@ -107,10 +115,14 @@ Route::group(['middleware' => ['auth','role'], 'role' => ['role_director']], fun
 
 		//ExtensionReports Photos
 		Route::resource('director-extension-reports-photos','Director\ExtensionReportPhotoController')->only(['destroy']);
-		// Route::put('/research/cards/lock/{card}','CardController@lock')->name('lock.research.card');
-		// Route::put('/research/cards/unlock/{card}','CardController@unlock')->name('unlock.research.card');
-
+		//Board
 		Route::get('reports/data/{type}','Director\BoardsController@reportsData')->name('director-reports.data');
+	
+		//Manage Reports
+		Route::get('manage/report/forms','Director\ManageReportsController@index')->name('director-report-forms-list');
+		Route::get('manage/report/forms/data','Director\ManageReportsController@reportForms')->name('director-report-forms-data');
+		Route::get('lock-and-unlock/report/forms/{id}','Director\ManageReportsController@lockAndUnlock');
+		// Route::put('/research/cards/unlock/{card}','CardController@unlock')->name('unlock.research.card');
 	});
 });
 

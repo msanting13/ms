@@ -8,9 +8,10 @@
 			<a href="#modal-id" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"><i class="fas fa-plus fa-sm text-white-50"></i> Create Report</a>
 		@endif --}}
 	</div>
+	<hr>
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Submission’s</h6>
+			<h6 class="m-0 font-weight-bold text-primary">List of Research Report Forms</h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -18,11 +19,12 @@
 					<thead>
 						<tr>
 							<th>ID#</th>
+							<th>Status</th>
 							<th>Type</th>
 							<th>Description</th>
 							<th>Fiscal year</th>
 							<th>Remark</th>
-							<th>Status</th>
+							<th>Deadline</th>
 							<th>Date created</th>
 							<th>Action</th>
 						</tr>
@@ -30,11 +32,12 @@
 					<tfoot>
 						<tr>
 							<th>ID#</th>
+							<th>Status</th>
 							<th>Type</th>
 							<th>Description</th>
 							<th>Fiscal year</th>
 							<th>Remark</th>
-							<th>Status</th>
+							<th>Deadline</th>
 							<th>Date created</th>
 							<th>Action</th>
 						</tr>
@@ -49,9 +52,9 @@
 			$(document).ready(function() {
 			    $('#researchCardDataTable').DataTable({
 			    	"columnDefs": [{ 
-			    		"orderable": false, "targets": [5,7]
+			    		"orderable": false, "targets": [1,8]
 			    	}],
-			    	"order": [[ 6, "desc" ]],
+			    	"order": [[ 7, "desc" ]],
 			    	"processing": false,
 			    	"serverSide": false,
 			    	"ajax":{
@@ -60,11 +63,12 @@
 			    	},
 			    	"columns": [
 			    	{ "data": "id" },
+			    	{ "data": "status" },
 			    	{ "data": "card_name" },
 			    	{ "data": "description" },
 			    	{ "data": "fiscal_year" },
 			    	{ "data": "message" },
-			    	{ "data": "status" },
+			    	{ "data": "deadline" },
 			    	{ "data": "created_at" },
 			    	{ "data": "action" },
 			    	],

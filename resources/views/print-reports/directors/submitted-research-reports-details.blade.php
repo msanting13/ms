@@ -35,7 +35,7 @@
 	</head>
 	<body>
         <section class="header">
-            <img src="{{ public_path('assets/images/prints/header-logo.png') }}" style="height: 180px;">
+            <img src="https://res.cloudinary.com/zyana/image/upload/v1583460431/assets/header-logo_i2kbjj.png" style="height: 180px;">
             {{-- <h2>Surigao del Sur State University</h2>
             <h4>Rosario, Tandag City, Surigao del Sur 8300</h4>
             <h4>Telefax No. 086-214-4221</h4>

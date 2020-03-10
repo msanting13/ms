@@ -15,6 +15,8 @@
   <!-- Custom styles for this template-->
   <link href="/sb-admin/css/sb-admin-2.css" rel="stylesheet">
   <link href="/sb-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="/sb-admin/vendor/datatables/buttons.dataTables.css" rel="stylesheet">
+  {{-- <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet"> --}}
   <link href="/assets/plugins/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet">
   <!--Sweet Alert-->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" integrity="sha256-zuyRv+YsWwh1XR5tsrZ7VCfGqUmmPmqBjIvJgQWoSDo=" crossorigin="anonymous" /> -->
@@ -110,7 +112,12 @@
   <!-- Page level plugins -->
   <script src="/sb-admin/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="/sb-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="/sb-admin/js/demo/datatables-demo.js"></script>
+  <script src="/sb-admin/vendor/datatables/datatables.net-buttons/js/dataTables.buttons.js"></script>
+  <script src="/sb-admin/vendor/datatables/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+  <script src="/sb-admin/vendor/datatables/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script src="https://cdn.datatables.net/plug-ins/1.10.20/dataRender/ellipsis.js"></script>
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> --}}
   <script>
     function initDateTimePicker() 
     {
@@ -155,98 +162,98 @@
     }
   </script>
   <script type="text/javascript">
- function postUpostSwitcher(){
-    var stopchange = false;
+   function postUpostSwitcher(){
+      var stopchange = false;
 
-    $('.post-unpost-switch').on('switchChange.bootstrapSwitch', function (e, state) {
+      $('.post-unpost-switch').on('switchChange.bootstrapSwitch', function (e, state) {
 
-        let message;
-        let obj = $(this);
-        let id = $(this).data('id');
-        let title = $(this).data("textval");
-        let currentState = $(this).val();
+          let message;
+          let obj = $(this);
+          let id = $(this).data('id');
+          let title = $(this).data("textval");
+          let currentState = $(this).val();
 
-        if(currentState == "off"){
-            message = "Post";
-        }else{
-            message = "Unpost";
-        }
+          if(currentState == "off"){
+              message = "Post";
+          }else{
+              message = "Unpost";
+          }
 
-        if(stopchange === false)
-        {
-            swal.fire({
-                title: 'Are you sure you want to '+message+'?',
-                text: title,
-                icon: 'warning',
-                input: 'password',
-                inputPlaceholder: 'Enter administrator password',
-                showCancelButton: true,
-                confirmButtonText: 'Yes '+message+' it!',
-                allowOutsideClick: false,
-                inputValidator: (value) => {
-                    if (!value) {
-                      return 'You need to write something!'
-                  }
-              }
-            })
-            .then((result) => {
-                if (result.value) {
-                    let dataString = 'password='+result.value + '&id='+id;
-                    $.ajax({
-                        url:'@yield('publisher')'+id,
-                        type:"GET",
-                        dataType:"json",
-                        data: dataString,
-                        success:function(data){
-                            if (data.done == true) {
-                                Swal.fire({
-                                  icon: 'success',
-                                  title: data.message,
-                              }).then((isConfirm) => {
-                                if (isConfirm) {
-                                  if(data.message == "Posted"){
-                                    obj.attr("value","on")
-                                  }else{
-                                    obj.attr("value","off")
-                                  }
-                                } 
-                              });
-
-                            }
-                            if (data.error == false) {
-                                Swal.fire({
-                                  icon: 'warning',
-                                  title: data.message,
-                              }).then((isConfirm) => {
-                                if (isConfirm) {
-                                  if(stopchange === false){
-                                    stopchange = true;
-                                    obj.bootstrapSwitch('toggleState');
-                                    stopchange = false;
-                                  }
-                                } 
-                        });
-                            }
-                        },
-                        error: function() {
-                            Swal.fire({
-                                title: "Something went wrong!",
-                                icon: "warning",
-                            });
-                        }
-                    });
-
-                }else if(result.dismiss == 'cancel'){
-                    if(stopchange === false){
-                        stopchange = true;
-                        obj.bootstrapSwitch('toggleState');
-                        stopchange = false;
+          if(stopchange === false)
+          {
+              swal.fire({
+                  title: 'Are you sure you want to '+message+'?',
+                  text: title,
+                  icon: 'warning',
+                  input: 'password',
+                  inputPlaceholder: 'Enter your password to continue',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes '+message+' it!',
+                  allowOutsideClick: false,
+                  inputValidator: (value) => {
+                      if (!value) {
+                        return 'You need to write something!'
                     }
                 }
-            });
-        }
-    });
- }
+              })
+              .then((result) => {
+                  if (result.value) {
+                      let dataString = 'password='+result.value + '&id='+id;
+                      $.ajax({
+                          url:'@yield('publisher')'+id,
+                          type:"GET",
+                          dataType:"json",
+                          data: dataString,
+                          success:function(data){
+                              if (data.done == true) {
+                                  Swal.fire({
+                                    icon: 'success',
+                                    title: data.message,
+                                }).then((isConfirm) => {
+                                  if (isConfirm) {
+                                    if(data.message == "Posted"){
+                                      obj.attr("value","on")
+                                    }else{
+                                      obj.attr("value","off")
+                                    }
+                                  } 
+                                });
+
+                              }
+                              if (data.error == false) {
+                                  Swal.fire({
+                                    icon: 'warning',
+                                    title: data.message,
+                                }).then((isConfirm) => {
+                                  if (isConfirm) {
+                                    if(stopchange === false){
+                                      stopchange = true;
+                                      obj.bootstrapSwitch('toggleState');
+                                      stopchange = false;
+                                    }
+                                  } 
+                          });
+                              }
+                          },
+                          error: function() {
+                              Swal.fire({
+                                  title: "Something went wrong!",
+                                  icon: "warning",
+                              });
+                          }
+                      });
+
+                  }else if(result.dismiss == 'cancel'){
+                      if(stopchange === false){
+                          stopchange = true;
+                          obj.bootstrapSwitch('toggleState');
+                          stopchange = false;
+                      }
+                  }
+              });
+          }
+      });
+   }
   </script>
   <script>
   function goBack() {

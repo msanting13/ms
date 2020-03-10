@@ -256,7 +256,7 @@ class ExtensionReportsController extends Controller
     
     public function exportReportspdf($id)
     {
-        $reports = ResearchReport::where('card_id',decrypt($id))->where('user_id', Auth::id())->get();
+        $reports = ExtensionReport::where('card_id',decrypt($id))->where('user_id', Auth::id())->get();
         $view = 'print-reports.directors.submitted-extension-reports';
         $data = $reports;
         return $this->exportToPdf($view,$data);

@@ -5,9 +5,9 @@
 	<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
 		<div class="dropdown-header text-gray-900">Action:</div>
 		{{-- @include('includes.crud-card-btn') --}}
-		<a class="dropdown-item" href="{{ ($card->type == 'research') ? route('admin-research-card.show',$card->id) :  route('admin-extension-card.show',$card->id) }}">
+		<a class="dropdown-item" href="{{ ($card->type == 'research') ? route('research.show', $card->id) :  route('admin-extension-card.show',$card->id) }}">
 			<i class="fas fa-eye fa-sm fa-fw text-gray-800"></i>
-			View submitted reports
+			Show Submitted Reports
 		</a>
 		<div class="dropdown-divider"></div>
 		<a class="dropdown-item edit-card" href="javascript:void(0)" data-toggle="modal" data-target="#modal-id-crud" data-id="{{ $card->id }}" data-backdrop="static">

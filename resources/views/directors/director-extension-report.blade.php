@@ -9,25 +9,28 @@
             <a href="{{ route('director-extension-reports.create', $card->id) }}" class="btn btn-sm btn-primary submit-report {{ ($card->is_lock)? 'disabled' : '' }}"><i class="fas fa-upload fa-sm text-white-50"></i> Submit report</a>
         </div>
 	</div>
-	<div class="card shadow mb-4">
-		<div class="card-header py-3">
-			<h5 class="m-0 font-weight-bold text-primary">
-				{{ $card->card_name." "."FY ".$card->fiscal_year }}
+	<hr>
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h4 class="h4 mb-0 text-gray-800">
+        	{{ $card->card_name." "."FY ".$card->fiscal_year }}
 				@if($card->is_lock)
 					<i class="fas fa-lock fa-md fa-fw" style="color: #e74a3b;"></i>
 				@else
 					<i class="fas fa-unlock fa-md fa-fw" style="color: #36b9cc;"></i>
 				@endif
-			</h5>
+        	<p class="h6 mb-0 text-gray-800">Description: {{ $card->description }}</p>
+        	<p class="h6 mb-0 text-gray-800">Deadline: {{ $card->deadline->format('F d,Y') }}</p>
+        </h4>        
+	</div>
+	<hr>
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">
-				Description: {{ $card->description }}
-			</h6>
-			<h6 class="m-0 font-weight-bold text-primary">
-				Deadline: {{ $card->deadline->format('F d,Y') }}
+				List of Submitted Reports	
 			</h6>
 		</div>
 		<div class="card-body">
-            <a href="{{ route('user-submitted-extension-report.export-pdf',encrypt($card->id)) }}" class="btn btn-info btn-sm" target="_blank">
+            <a href="{{ route('director-submitted-extension-report.export-pdf',encrypt($card->id)) }}" class="btn btn-info btn-sm" target="_blank">
                 <i class="fas fa-print"></i>
                 Print
 			</a>

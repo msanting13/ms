@@ -1,0 +1,1 @@
+<a class="btn btn-success btn-sm" href="{{ route('research.show', $card->id) }}"><i class="fas fa-fw fa-eye"></i>View reports</a>

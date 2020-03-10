@@ -10,6 +10,12 @@
   display: inline-block;
   margin-left: -5px;
 }
+/* .truncate {
+    max-width:50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  } */
 
 
 /** bootstrap-datetimepicker **/

@@ -1,5 +1,5 @@
 @extends('layouts.layout-master')
-@section('title','Research')
+@section('title','Extension')
 @section('statusResearch','active')
 @section('content')
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -10,7 +10,7 @@
 	</div>
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Reports</h6>
+			<h6 class="m-0 font-weight-bold text-primary">List of Extension Report Forms</h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -23,7 +23,8 @@
 							<th>Fiscal year</th>
 							<th>Remark</th>
 							<th>Status</th>
-							<th>Progress</th>
+							{{-- <th>Progress</th> --}}
+							<th>Deadline</th>
 							<th>Date created</th>
 							<th>Action</th>
 						</tr>
@@ -32,13 +33,14 @@
 						<tr>
 							<th>ID#</th>
 							<th>Type</th>
-							<th>Description</th>
+							<th></th>
 							<th>Fiscal year</th>
 							<th>Remark</th>
-							<th>Status</th>
-							<th>Progress</th>
+							<th></th>
+							{{-- <th>Progress</th> --}}
+							<th>Deadline</th>
 							<th>Date created</th>
-							<th>Action</th>
+							<th></th>
 						</tr>
 					</tfoot>
 				</table>
@@ -51,9 +53,16 @@
 			$(document).ready(function() {
 			    $('#extensionBoardDataTable').DataTable({
 			    	"columnDefs": [{ 
-			    		"orderable": false, "targets": [7]
-			    	}],
-			    	"order": [[ 6, "desc" ]],
+			    		"orderable": false, "targets": [0,5,8]
+			    	},{
+						"targets": 2,
+						"render": function ( data, type, row ) {
+    return type === 'display' && data.length > 10 ?
+        data.substr( 0, 10 ) +'…' :
+        data;
+}
+					}],
+			    	"order": [[ 7, "desc" ]],
 			    	"processing": true,
 			    	"serverSide": true,
 			    	"ajax":{
@@ -67,42 +76,36 @@
 						{ "data": "fiscal_year" },
 						{ "data": "message" },
 						{ "data": "status" },
-						{ "data": "counts" },
+						// { "data": "counts" },
+						{ "data": "deadline" },
 						{ "data": "created_at" },
 						{ "data": "action" },
-			    	],
+						],
 			    	"drawCallback": function(settings){
 						initbootstrapSwitch();
 						postUpostSwitcher();
 			    		deleteFunction();
-
-			    		$(".lock-btn").click(function(){
-			    			let id = $(this).data('id');
-			    			swal({
-			    				title: 'Lock?',
-			    				text: "",
-			    				icon: 'warning',
-			    				buttons: true,
-			    			}).then((isConfirm) => {
-			    				if (isConfirm) {
-			    					document.getElementById('lock-form'+id).submit(); 
-			    				} 
-			    			})
-			    		});
-			    		$(".unlock-btn").click(function(){
-			    			let id = $(this).data('id');
-			    			swal({
-			    				title: 'Unlock?',
-			    				text: "",
-			    				icon: 'warning',
-			    				buttons: true,
-			    			}).then((isConfirm) => {
-			    				if (isConfirm) {
-			    					document.getElementById('unlock-form'+id).submit(); 
-			    				} 
-			    			})
-			    		});
-			    	}
+			    	},
+					initComplete: function () {
+						this.api().columns([0,1,3,4,6,7]).every( function () {
+							var column = this;
+							var select = $('<select><option value=""></option></select>')
+								.appendTo( $(column.footer()).empty())
+								.on( 'change', function () {
+									var val = $.fn.dataTable.util.escapeRegex(
+										$(this).val()
+									);
+			
+									column
+										.search( val ? '^'+val+'$' : '', true, false )
+										.draw();
+								} );
+			
+							column.data().unique().sort().each( function ( d, j ) {
+								select.append( '<option value="'+d+'">'+d+'</option>' )
+							} );
+						} );
+        			}
 			    });
 			});
 		</script>

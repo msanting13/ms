@@ -18,7 +18,7 @@ class ResearchReportsController extends Controller
     }
     public function researchReportsData($id)
     {
-        return datatables()->of(ResearchReport::where('card_id',$id)->get())->setTransformer(new \App\Transformers\ResearchReportTransformer)->make(true);  
+        return datatables()->of(ResearchReport::where('card_id',$id)->where('is_published', true)->get())->setTransformer(new \App\Transformers\ResearchReportTransformer)->make(true);  
     }
     /**
      * Display a listing of the resource.

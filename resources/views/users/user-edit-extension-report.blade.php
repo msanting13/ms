@@ -112,7 +112,7 @@
 									<input name="_method" type="hidden" value="DELETE">
 								</form>
 								<a href="{{ $user_extension_report->url }}" target="_blank" class="d-block mb-4 h-100">
-									<img class="img-fluid img-thumbnail" src="/public_files/gallery/{{ $photo->photo }}">
+									<img class="img-fluid img-thumbnail" src="{{ $user_extension_report->url }}">
 								</a>
 							</div>
 						@endforeach

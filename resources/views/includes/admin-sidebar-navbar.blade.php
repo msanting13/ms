@@ -8,17 +8,32 @@
   </a>
 
   <!-- Divider -->    
-  <hr class="sidebar-divider my-0">
+    <hr class="sidebar-divider my-0">
     <li class="nav-item">
       <a class="nav-link" href="{{ route('admin.dashboard') }}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>
+
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports1" aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Reports</span>
+      </a>
+      <div id="collapseReports1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <a class="collapse-item" href="{{ route('research.index') }}">Research</a>
+          <a class="collapse-item" href="{{ route('extension.index') }}">Extension</a>
+        </div>
+      </div>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
     <!-- Heading -->
     <div class="sidebar-heading">
-      Report's Management
+      Manage Report Forms
     </div>
 
       <li class="nav-item">
@@ -32,8 +47,8 @@
       <hr class="sidebar-divider my-0">
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Reports</span>
+        <i class="fas fa-fw fa-file"></i>
+        <span>Report Forms</span>
       </a>
       <div id="collapseReports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
@@ -46,7 +61,7 @@
     <hr class="sidebar-divider d-none d-md-block">
     <!-- Heading -->
     <div class="sidebar-heading">
-      Posts Management
+      Manage Posts
     </div>
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePosts" aria-expanded="true" aria-controls="collapseTwo">
@@ -65,7 +80,7 @@
     <hr class="sidebar-divider">
     <!-- Heading -->
     <div class="sidebar-heading">
-      Users Management
+      Manage User
     </div>
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUserManagement" aria-expanded="true" aria-controls="collapseTwo">

@@ -1,0 +1,3 @@
+<div class="bt-switch">
+	<input type="checkbox" class="unlock-locked-switch" data-id="{{ $card->id }}" data-textval="{{ ucfirst($card->type)." ".$card->card_name." ".$card->fiscal_year }}" data-on-color="success" data-off-color="danger" data-on-text="Unlock" data-off-text="Locked" data-size="medium" {{ $card->is_lock ? 'value=locked ' : 'value=unlock' }} {{ !$card->is_lock ? 'checked=checked ' : '' }}>
+</div>

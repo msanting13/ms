@@ -6,21 +6,23 @@
 		<h1 class="h3 mb-0 text-gray-800">Research</h1>
 		<button type="button" class="btn btn-sm btn-secondary" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
 	</div>
-	<div class="card shadow mb-4">
-		<div class="card-header py-3">
-			<h5 class="m-0 font-weight-bold text-primary">
-				{{ $card->card_name." "."FY ".$card->fiscal_year }}
+	<hr>
+{{-- 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h4 class="h4 mb-0 text-gray-800">
+        	{{ $card->card_name." "."FY ".$card->fiscal_year }}
 				@if($card->is_lock)
 					<i class="fas fa-lock fa-md fa-fw" style="color: #e74a3b;"></i>
 				@else
 					<i class="fas fa-unlock fa-md fa-fw" style="color: #36b9cc;"></i>
 				@endif
-			</h5>
+        	<p class="h6 mb-0 text-gray-800">Description: {{ $card->description }}</p>
+        	<p class="h6 mb-0 text-gray-800">Deadline: {{ $card->deadline->format('F d,Y') }}</p>
+        </h4>        
+	</div> --}}
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">
-				Description: {{ $card->description }}
-			</h6>
-			<h6 class="m-0 font-weight-bold text-primary">
-				Deadline: {{ $card->deadline->format('F d,Y') }}
+				{{ ucfirst($card->type)."/".$card->card_name." "."FY ".$card->fiscal_year }} Form
 			</h6>
 		</div>
 		<div class="card-body">

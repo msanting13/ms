@@ -20,7 +20,8 @@ class ResearchReportTransformer extends TransformerAbstract
             'funding_source' => (string) $report->funding_source,
             'agency' => (string) $report->agency,
             'sdgs_addressed' => (string) $report->sdgs_addressed,
-            'submitted_by' => (string) $report->users->name.'|'.$report->users->campuses.' Campus',
+            'submitted_by' => (string) $report->users->name,
+            'campus' => (string) $report->users->campuses,
             'created_at' => (string) $report->created_at,
             'action' => view('admin.crud-form.crud-btn.research-btn', compact('report'))->render(),
         ];

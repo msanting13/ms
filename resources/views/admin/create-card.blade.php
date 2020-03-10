@@ -5,14 +5,14 @@
   <div class="card shadow mb-4">
 
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Create Report</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Create Forms</h6>
     </div>
 
     <div class="card-body">
       <form action="{{ route('card.store') }}" method="POST" role="form">
         @csrf
         <div class="form-group row">
-          <label for="boardType" class="col-md-4 col-form-label text-md-right">{{ __('Report for *') }}</label>
+          <label for="boardType" class="col-md-4 col-form-label text-md-right">{{ __('Type *') }}</label>
 
           <div class="col-md-6">
             <select id="boardType" class="form-control @error('type') is-invalid @enderror" name="type">
@@ -48,7 +48,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="cardName" class="col-md-4 col-form-label text-md-right">{{ __('Report type ') }}</label>
+          <label for="cardName" class="col-md-4 col-form-label text-md-right">{{ __('Form Type ') }}</label>
 
           <div class="col-md-6">
             <select id="cardName" class="form-control @error('card_name') is-invalid @enderror" name="card_name">
