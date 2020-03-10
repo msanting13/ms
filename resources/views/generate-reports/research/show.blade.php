@@ -64,7 +64,7 @@
 						"extend": 'print',
 						"title": reportTitle,
 						"customize": function ( win ) { 
-							$(win.document.body) .css('font-size', '12pt') .prepend( '<img src="http://127.0.0.1:8000/assets/images/prints/header-logo.png" style="width:100%;height:auto;" /> <hr style="position:relative; top:-60px;">' ); 
+							$(win.document.body) .css('font-size', '12pt') .prepend( '<img src="https://res.cloudinary.com/zyana/image/upload/v1583460431/assets/header-logo_i2kbjj.png" style="width:100%;height:auto;" /> <hr style="position:relative; top:-60px;">' ); 
 							$(win.document.body).find( 'table' ) .addClass( 'compact table table-striped' ) .css( 'font-size', '16px' ); },
 						"exportOptions": { columns: ':visible' }
 					},
