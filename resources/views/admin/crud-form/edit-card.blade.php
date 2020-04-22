@@ -6,7 +6,7 @@
 		<select id="fiscalYear" class="form-control" name="fiscal_year" required>
 			<option>{{ $card->fiscal_year }}</option>
 			@for($i=date('Y'); $i >= 2000; $i--)
-				<option>FY {{ $i }}</option>
+				<option>{{ $i }}</option>
 			@endfor
 		</select>
 	</div>

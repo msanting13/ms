@@ -46,11 +46,18 @@
                             </div>
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing" {{ old('remember') ? 'checked' : '' }}>
+                                    <input type="checkbox" class="custom-control-input" name="remember" id="customControlAutosizing" {{ old('remember') ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="customControlAutosizing">Remember me</label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn mag-btn mt-30">Login</button>
+                            <div class="form-group">
+                                <button type="submit" class="btn mag-btn mt-30">Login</button>
+                                @if (Route::has('password.request'))
+                                    <a class="btn-link pull-right mt-40" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+                            </div>
                         </form>
                     </div>
                 </div>
